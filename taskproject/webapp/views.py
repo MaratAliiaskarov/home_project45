@@ -10,13 +10,18 @@ def index_view(request):
     return render(request, "index.html", context)
 
 
+
+
+
 def create_article(request):
     if request.method == "GET":
         return render(request, "create.html")
     else:
-        context = {
-            "project": request.POST.get("project"),
-            "content": request.POST.get("content"),
-            "author": request.POST.get("author"),
-        }
+
+        project = request.POST.get("project")
+        content = request.POST.get("content")
+        author = request.POST.get("author")
+        new_article = Article.objects.create(project=project, author=author, content=content)
+        context = {"article": new_article}
+
         return render(request, "article_view.html", context)

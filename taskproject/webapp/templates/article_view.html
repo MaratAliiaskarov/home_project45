@@ -8,12 +8,22 @@
     <title>Document</title>
 </head>
 <body>
-        <p>
+        <h1 style="display: inline-block">
             {{ article.project }}
+        </h1>
+
+        <p style="display: inline-block">
+            {{ article.created_at|date:"Y-m-d G:i" }}
         </p>
+
+        <p>
+            {{ article.status }}
+        </p>
+
         <p>
             {{ article.content }}
         </p>
+
         <p>
             {{ article.author }}
         </p>

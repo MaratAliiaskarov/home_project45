@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
+
 
 # Create your views here.
-from webapp.models import Article
+from webapp.models import Article, STATUS_CHOICES
 
 
 def index_view(request):
@@ -10,21 +11,31 @@ def index_view(request):
     return render(request, "index.html", context)
 
 
-def article_view(request):
-    pk = request.GET.get("pk")
-    article = Article.objects.get(pk=pk)
+def article_view(request, **kwargs):
+    pk = kwargs.get("pk")
+    article = get_object_or_404(Article, pk=pk)
     return render(request, "article_view.html", {"article": article})
 
 
 def create_article(request):
     if request.method == "GET":
-        return render(request, "create.html")
+        return render(request, "create.html", {'statuses': STATUS_CHOICES})
     else:
 
         project = request.POST.get("project")
         content = request.POST.get("content")
         author = request.POST.get("author")
-        new_article = Article.objects.create(project=project, author=author, content=content)
-        context = {"article": new_article}
+        status = request.POST.get("status")
+        new_article = Article.objects.create(project=project, author=author, content=content, status=status)
 
-        return render(request, "article_view.html", context)
+        return redirect("article_view", pk=new_article.pk)
+
+        #context = {"article": new_article}
+
+        #return HttpResponseRedirect(reverse("article_view", kwargs={"pk": new_article.pk}))
+
+
+
+        #return HttpResponseRedirect(f"/article/{new_article.pk}")
+
+        #return render(request, "article_view.html", context)

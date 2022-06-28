@@ -1,25 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Create</title>
-</head>
-<body>
-<h1>Create Article</h1>
-<form action="/articles/add/" method="post">
-    {% csrf_token %}
+{% extends "base.html" %}
+{% block title %}Created Project{% endblock %}
 
-    <label>Project:</label><br/>
-    <input type="text" name="project"/><br/>
+{% block content %}
 
-    <label>Content:</label><br/>
-    <textarea name="content"></textarea><br/>
+    <h1>Create Project</h1>
+    <form action="" method="post">
+        {% csrf_token %}
 
-    <label>Author:</label><br/>
-    <input type="text" name="author"/><br/>
-    <br/>
-    <input type="submit" value="Send"/>
-</form>
-<a href="/">Main page</a>
-</body>
-</html>
+        <label>Status:</label><br/>
+        <select name="status">
+            {% for status in statuses %}
+                <option value="{{ status.0 }}">{{ status.1 }}</option>
+            {% endfor %}
+        </select>
+        <br/>
+
+        <label>Project:</label><br/>
+        <input type="text" name="project"/><br/>
+
+        <label>Content:</label><br/>
+        <textarea name="content"></textarea><br/>
+
+        <label>Author:</label><br/>
+        <input type="text" name="author"/><br/>
+        <br/>
+        <input type="submit" value="Send"/>
+    </form>
+    <a href="{% url "index" %}">Main page</a>
+
+{% endblock %}

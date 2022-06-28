@@ -1,20 +1,20 @@
+{% extends "base.html" %}
 {% load static %}
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" href="{% static "css/style.css" %}">
-</head>
-<body>
-<a href="{% url "create_article" %}">Created Projects</a>
+
+{% block nav %}
+    <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="{% url "create_article" %}">Created Project</a>
+    </li>
+{% endblock %}
+
+
+{% block content %}
+
+        <a href="{% url "create_article" %}">Created Projects</a>
         <h1>Projects</h1>
         {% for article in articles %}
             <h3>{{ article.project }}</h3> <span>{{ article.status }}</span>
             <p><a href="{% url "article_view" article.pk %}">more</a></p>
         {% endfor %}
-</body>
-</html>
+
+{% endblock %}

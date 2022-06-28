@@ -1,6 +1,5 @@
-from django.shortcuts import render, redirect
-from django.http import HttpResponseRedirect
-from django.urls import reverse
+from django.shortcuts import render, redirect, get_object_or_404
+
 
 # Create your views here.
 from webapp.models import Article, STATUS_CHOICES
@@ -12,9 +11,9 @@ def index_view(request):
     return render(request, "index.html", context)
 
 
-def article_view(request, pk):
-    #pk = request.GET.get("pk")
-    article = Article.objects.get(pk=pk)
+def article_view(request, **kwargs):
+    pk = kwargs.get("pk")
+    article = get_object_or_404(Article, pk=pk)
     return render(request, "article_view.html", {"article": article})
 
 

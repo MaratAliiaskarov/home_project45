@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Create Article</h1>
-<form action="/articles/add/" method="post">
+<form action="" method="post">
     {% csrf_token %}
 
     <label>Status:</label><br/>
@@ -28,6 +28,6 @@
     <br/>
     <input type="submit" value="Send"/>
 </form>
-<a href="/">Main page</a>
+<a href="{% url "index" %}">Main page</a>
 </body>
 </html>

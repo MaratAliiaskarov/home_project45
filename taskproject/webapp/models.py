@@ -16,5 +16,5 @@ class Article(models.Model):
 
     class Meta:
         db_table = "articles"
-        verbose_name = "Statya"
-        verbose_name_plural = "Statii"
+        verbose_name = "Project"
+        verbose_name_plural = "Projects"

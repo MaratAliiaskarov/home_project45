@@ -10,7 +10,10 @@ def index_view(request):
     return render(request, "index.html", context)
 
 
-
+def article_view(request):
+    pk = request.GET.get("pk")
+    article = Article.objects.get(pk=pk)
+    return render(request, "article_view.html", {"article": article})
 
 
 def create_article(request):

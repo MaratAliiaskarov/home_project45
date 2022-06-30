@@ -30,10 +30,7 @@ def create_article(request):
 
         return redirect("article_view", pk=new_article.pk)
 
-        #context = {"article": new_article}
-        #return HttpResponseRedirect(reverse("article_view", kwargs={"pk": new_article.pk}))
-        #return HttpResponseRedirect(f"/article/{new_article.pk}")
-        #return render(request, "article_view.html", context)
+
 
 def update_article(request, pk):
     article = get_object_or_404(Article, pk=pk)
@@ -46,3 +43,14 @@ def update_article(request, pk):
         article.save()
 
         return redirect("article_view", pk=article.pk)
+
+
+def delete_article(request, pk):
+    article = get_object_or_404(Article, pk=pk)
+    if request.method == "GET":
+        pass
+        #return render(request, "delete.html", {"article": article})
+    else:
+        article.delete()
+
+        return redirect("index")

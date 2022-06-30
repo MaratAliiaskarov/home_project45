@@ -15,16 +15,8 @@
         </select>
         <br/>
 
-        <label>Project:</label><br/>
-        <input type="text" name="project"/><br/>
+        {% include "partial/form.html" with button_text="Created"%}
 
-        <label>Content:</label><br/>
-        <textarea name="content"></textarea><br/>
-
-        <label>Author:</label><br/>
-        <input type="text" name="author"/><br/>
-        <br/>
-        <input type="submit" value="Send"/>
     </form>
     <a href="{% url "index" %}">Main page</a>
 

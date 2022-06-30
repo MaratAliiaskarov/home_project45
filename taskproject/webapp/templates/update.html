@@ -5,19 +5,7 @@
 
     <h1>Update Project</h1>
     <form action="" method="post">
-        {% csrf_token %}
-
-
-        <label>Project:</label><br/>
-        <input type="text" name="project" value="{{ article.project }}"/><br/>
-
-        <label>Content:</label><br/>
-        <textarea name="content">{{ article.content }}</textarea><br/>
-
-        <label>Author:</label><br/>
-        <input type="text" name="author" value="{{ article.author }}"/><br/>
-        <br/>
-        <input type="submit" value="Change"/>
+        {% include "partial/form.html" with button_text="Change" %}
     </form>
     <a href="{% url "index" %}">Main page</a>
 

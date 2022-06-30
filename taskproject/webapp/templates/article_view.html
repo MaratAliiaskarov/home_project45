@@ -5,6 +5,9 @@
     <li class="nav-item">
         <a class="nav-link active" aria-current="page" href="{% url "create_article" %}">Created Project</a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="{% url "update_article" article.pk %}">Update Project</a>
+    </li>
 {% endblock %}
 
 {%  block content %}

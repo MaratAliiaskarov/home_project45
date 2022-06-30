@@ -6,7 +6,7 @@ from webapp.models import Article, STATUS_CHOICES
 
 
 def index_view(request):
-    articles = Article.objects.order_by(("-created_at"))
+    articles = Article.objects.order_by(("-updated_at"))
     context = {"articles": articles}
     return render(request, "index.html", context)
 
@@ -31,11 +31,18 @@ def create_article(request):
         return redirect("article_view", pk=new_article.pk)
 
         #context = {"article": new_article}
-
         #return HttpResponseRedirect(reverse("article_view", kwargs={"pk": new_article.pk}))
-
-
-
         #return HttpResponseRedirect(f"/article/{new_article.pk}")
-
         #return render(request, "article_view.html", context)
+
+def update_article(request, pk):
+    article = get_object_or_404(Article, pk=pk)
+    if request.method == "GET":
+        return render(request, "update.html", {"article": article})
+    else:
+        article.project = request.POST.get("project")
+        article.content = request.POST.get("content")
+        article.author = request.POST.get("author")
+        article.save()
+
+        return redirect("article_view", pk=article.pk)

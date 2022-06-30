@@ -10,11 +10,18 @@
 
 {% block content %}
 
-        <a href="{% url "create_article" %}">Created Projects</a>
         <h1>Projects</h1>
-        {% for article in articles %}
-            <h3>{{ article.project }}</h3> <span>{{ article.status }}</span>
-            <p><a href="{% url "article_view" article.pk %}">more</a></p>
-        {% endfor %}
+        <div class="row">
+            {% for article in articles %}
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">{{ article.project }}</h3> <span>{{ article.status }}</span>
+                            <p><a href="{% url "article_view" article.pk %}">more</a></p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
 
 {% endblock %}

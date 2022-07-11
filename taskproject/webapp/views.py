@@ -2,20 +2,35 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 
 # Create your views here.
+from django.views import View
+
 from webapp.models import Article, STATUS_CHOICES
 from webapp.validate import article_validate
+from  django.views.generic import TemplateView, RedirectView
 
 
-def index_view(request):
-    articles = Article.objects.order_by(("-updated_at"))
-    context = {"articles": articles}
-    return render(request, "index.html", context)
+class IndexView(View):
+    def get(self, request):
+        articles = Article.objects.order_by(("-updated_at"))
+        context = {"articles": articles}
+        return render(request, "index.html", context)
+
+class MyRedirectView(RedirectView):
+    url = "https://www.google.com/"
 
 
-def article_view(request, **kwargs):
-    pk = kwargs.get("pk")
-    article = get_object_or_404(Article, pk=pk)
-    return render(request, "article_view.html", {"article": article})
+class ArticleView(TemplateView):
+    template_name = "article_view.html"
+    # extra_context = {"test": "test"}
+    # def get_template_names(self):
+    #     return "article_view.html"
+
+    def get_context_data(self, **kwargs):
+        pk = kwargs.get("pk")
+        article = get_object_or_404(Article, pk=pk)
+        kwargs["article"] = article
+        return super().get_context_data(**kwargs)
+
 
 
 def create_article(request):
@@ -26,7 +41,7 @@ def create_article(request):
         content = request.POST.get("content")
         author = request.POST.get("author")
         status = request.POST.get("status")
-        new_article = Article(project=project, content=content, author=author)
+        new_article = Article(project=project, content=content, author=author, status=status)
         errors = article_validate(project, content, author)
         if errors:
             return render(request, "create.html", {"errors": errors, "article": new_article})

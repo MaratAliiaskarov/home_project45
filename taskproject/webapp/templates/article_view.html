@@ -18,6 +18,7 @@
 
 {%  block content %}
 
+        {{ test }}
 
         <h1 style="display: inline-block">
             {{ article.project }}
@@ -39,7 +40,16 @@
             {{ article.author }}
         </p>
 
-<a href="{% url "index" %}">Main page</a>
+        <h5>Comments</h5>
+
+        {% for comment in article.comments.all %}
+            <p>{{ comment.text }}</p>
+        {% empty %}
+            <p>not comments</p>
+
+        {% endfor %}
+
+    <a href="{% url "index" %}">Main page</a>
 
 
     <div class="modal fade" id="articleDeleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

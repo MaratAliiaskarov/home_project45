@@ -17,7 +17,9 @@ class Article(BaseModel):
     author = models.CharField(max_length=50, verbose_name="Author", default="Unknown")
     content = models.TextField(max_length=3000, verbose_name="Content")
     status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='new', verbose_name='Status')
-    tags = models.ManyToManyField("webapp.Tag", related_name="articles", through="webapp.ArticleTag", through_fields=("article", "tag"), blank=True)
+    # tags_old = models.ManyToManyField("webapp.Tag", related_name="old_articles", through="webapp.ArticleTag", through_fields=("article", "tag"), blank=True)
+
+    tags = models.ManyToManyField("webapp.Tag", related_name="articles", blank=True)
 
     def __str__(self):
         return f"{self.pk}, {self.project}, {self.author}, {self.status}"
@@ -56,8 +58,8 @@ class Tag(BaseModel):
         verbose_name_plural = "Tags"
 
 
-class ArticleTag(models.Model):
-    article = models.ForeignKey("webapp.Article", related_name="article_tags", on_delete=models.CASCADE, verbose_name="Project")
-
-    tag = models.ForeignKey("webapp.Tag", related_name="tags_article", on_delete=models.CASCADE,
-                                verbose_name="Tag")
+# class ArticleTag(models.Model):
+#     article = models.ForeignKey("webapp.Article", related_name="article_tags", on_delete=models.CASCADE, verbose_name="Project")
+#
+#     tag = models.ForeignKey("webapp.Tag", related_name="tags_article", on_delete=models.CASCADE,
+#                                 verbose_name="Tag")

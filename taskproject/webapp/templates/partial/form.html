@@ -1,29 +1,54 @@
 {% csrf_token %}
 
 
-<label>Project:</label><br/>
-{% if not errors.project %}
-    <input type="text" name="project" value="{{ article.project }}"/><br/>
-{% else %}
-    <input class="border border-danger border-4" type="text" name="project" value="{{ article.project }}"/><br/>
-    <p class="text-danger">{{ errors.project }}</p>
-{% endif %}
+{% for error in form.non_field_errors %}
+    <p class="text-danger">{{ error }}</p>
+{% endfor %}
 
-<label>Content:</label><br/>
-{% if not errors.content %}
-    <textarea name="content">{{ article.content }}</textarea><br/>
-{% else %}
-    <textarea class="border border-danger border-4" name="content">{{ article.content }}</textarea><br/>
-    <p class="text-danger">{{ errors.content }}</p>
-{% endif %}
+{% for field in form %}
+    <p><label for="{{ field.id_for_label }}">{{ field.label }}</label></p>
+    {% for error in field.errors %}
+        <p class="text-danger">{{ error }}</p>
+    {% endfor %}
+    <p>{{ field }}</p>
+{% endfor %}
+<p><input type="submit" value="{{ button_text }}"></p>
 
-<label>Author:</label><br/>
-{% if not errors.author %}
-    <input type="text" name="author" value="{{ article.author }}"/><br/>
-{% else %}
-    <input class="border border-danger border-4" type="text" name="author" value="{{ article.author }}"/><br/>
-    <p class="text-danger">{{ errors.author }}</p>
-{% endif %}
+{#{{ form.as_p }}#}
+{% for error in form.non_field_errors %}
+    <p class="form-error">{{ error }}</p>
+{% endfor %}
 
-<br/>
-<input type="submit" value="{{ button_text }}"/>
+
+
+
+
+
+
+
+{#<label>Project:</label><br/>#}
+{#{% if not errors.project %}#}
+{#    <input type="text" name="project" value="{{ article.project }}"/><br/>#}
+{#{% else %}#}
+{#    <input class="border border-danger border-4" type="text" name="project" value="{{ article.project }}"/><br/>#}
+{#    <p class="text-danger">{{ errors.project }}</p>#}
+{#{% endif %}#}
+{##}
+{#<label>Content:</label><br/>#}
+{#{% if not errors.content %}#}
+{#    <textarea name="content">{{ article.content }}</textarea><br/>#}
+{#{% else %}#}
+{#    <textarea class="border border-danger border-4" name="content">{{ article.content }}</textarea><br/>#}
+{#    <p class="text-danger">{{ errors.content }}</p>#}
+{#{% endif %}#}
+{##}
+{#<label>Author:</label><br/>#}
+{#{% if not errors.author %}#}
+{#    <input type="text" name="author" value="{{ article.author }}"/><br/>#}
+{#{% else %}#}
+{#    <input class="border border-danger border-4" type="text" name="author" value="{{ article.author }}"/><br/>#}
+{#    <p class="text-danger">{{ errors.author }}</p>#}
+{#{% endif %}#}
+{##}
+{#<br/>#}
+{#<input type="submit" value="{{ button_text }}"/>#}

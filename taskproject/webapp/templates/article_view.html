@@ -1,5 +1,6 @@
 
 {% extends "base.html" %}
+{% block project %}{% endblock %}
 
 {% block nav %}
     <li class="nav-item">
@@ -18,7 +19,7 @@
 
 {%  block content %}
 
-        {{ test }}
+{#        {{ test }}#}
 
         <h1 style="display: inline-block">
             {{ article.project }}
@@ -41,12 +42,17 @@
         </p>
 
         <h5>Comments</h5>
-
         {% for comment in article.comments.all %}
             <p>{{ comment.text }}</p>
         {% empty %}
             <p>not comments</p>
+        {% endfor %}
 
+        <h5>Tags</h5>
+        {% for tag in article.tags.all %}
+            <p>{{ tag.name }}</p>
+        {% empty %}
+            <p>not tags</p>
         {% endfor %}
 
     <a href="{% url "index" %}">Main page</a>

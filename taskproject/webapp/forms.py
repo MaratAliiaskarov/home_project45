@@ -1,3 +1,5 @@
+import re
+
 from django import forms
 from django.core.exceptions import ValidationError
 from django.forms import widgets
@@ -34,6 +36,9 @@ class ArticleForm(forms.ModelForm):
 
 
     def clean(self):
+        author = self.cleaned_data.get("author")
+        if not re.match("^[a-zA-Z]+$", author):
+            self.add_error("author", ValidationError("Enter letters"))
         if self.cleaned_data.get("project") == self.cleaned_data.get("content"):
             raise ValidationError("Nazvanie i opisanie ne moget sovpodat")
         return super().clean()

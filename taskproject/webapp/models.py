@@ -16,7 +16,7 @@ class BaseModel(models.Model):
 STATUS_CHOICES = [('new', 'New'), ('in_progress', 'Processing'), ('done', 'Completed')]
 
 class Article(BaseModel):
-    project = models.CharField(max_length=50, null=False, blank=False, verbose_name="Zagalovoc", validators=[validate_title])
+    project = models.CharField(max_length=50, null=False, blank=False, verbose_name="Zagalovoc")
     author = models.CharField(max_length=50, verbose_name="Author", default="Unknown")
     content = models.TextField(max_length=3000, verbose_name="Content")
     status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='new', verbose_name='Status')
